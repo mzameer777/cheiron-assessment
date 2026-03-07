@@ -1,0 +1,8 @@
+aws_region     = "us-west-2"
+vpc_id         = "vpc-id"
+subnet_ids     = ["subnet-id"]
+availability_zone = "us-west-2"
+key_pair_name  = "my-key-pair"
+my_ip          = "x.x.x.x/32"
+aws_account_id = "123456789012"
+instance_type  = "t2.micro"
