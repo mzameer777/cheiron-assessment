@@ -8,6 +8,7 @@ def health():
     return jsonify(status="healthy", service="service-b"), 200
 
 
+@app.route("/")
 @app.route("/service-b")
 def index():
     return jsonify(message="Hello from Service B"), 200

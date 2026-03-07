@@ -2,7 +2,8 @@
 
 # Update and install Docker
 apt-get update -y
-apt-get install -y docker.io docker-compose-v2 awscli curl
+apt-get install -y docker.io docker-compose-v2 curl
+snap install aws-cli --classic
 systemctl enable docker
 systemctl start docker
 
@@ -19,7 +20,7 @@ version: "3.8"
 
 services:
   service-a:
-    image: ${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/service-a:latest
+    image: ${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/service-a:1.1
     container_name: service-a
     ports:
       - "8080:5000"
@@ -32,7 +33,7 @@ services:
       start_period: 10s
 
   service-b:
-    image: ${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/service-b:latest
+    image: ${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com/service-b:1.1
     container_name: service-b
     ports:
       - "8081:5001"
