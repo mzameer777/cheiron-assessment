@@ -43,6 +43,7 @@ docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/service-b:1.1
 cd terraform/
 cp terraform.tfvars.example terraform.tfvars
 ```
+Edit the tfvars with the current AWS account, VPC, subnet and other configurations.
 ![TF vars used](<tfvars.png>)
 
 ```
