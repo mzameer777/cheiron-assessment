@@ -42,9 +42,10 @@ docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/service-b:1.1
 ```bash
 cd terraform/
 cp terraform.tfvars.example terraform.tfvars
+```
 ![TF vars used](<tfvars.png>)
 
-
+```
 terraform init
 terraform plan
 terraform apply
@@ -52,6 +53,7 @@ terraform apply
 ![EC2 instances created](<instances_created.png>)
 
 This provisions: security groups, IAM role, ALB with path-based routing, launch template, ASG (min=2, max=4), and CPU scale-out policy.
+
 EC2 instances are Bootstraped via user-data (installs Docker, authenticates to ECR, creates docker-compose.yml, starts services)
 ![containers running inside EC2](<app_running.png>)
 
