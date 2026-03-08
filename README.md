@@ -2,7 +2,7 @@
 
 ## Architecture
 
-![Architecture Diagram](arch.png)
+![Architecture Diagram](screenshots/arch.png)
 
 ## AWS Region
 
@@ -35,7 +35,7 @@ docker tag service-b:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/se
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/service-a:1.1
 docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/service-b:1.1
 ```
-![Image Push](<image_push.png>)
+![Image Push](screenshots/image_push.png)
 
 ### 2. Deploy Infrastructure with Terraform
 
@@ -44,19 +44,19 @@ cd terraform/
 cp terraform.tfvars.example terraform.tfvars
 ```
 Edit the tfvars with the current AWS account, VPC, subnet and other configurations.
-![TF vars used](<tfvars.png>)
+![TF vars used](screenshots/tfvars.png)
 
 ```
 terraform init
 terraform plan
 terraform apply
 ```
-![EC2 instances created](<instances_created.png>)
+![EC2 instances created](screenshots/instances_created.png)
 
 This provisions: security groups, IAM role, ALB with path-based routing, launch template, ASG (min=2, max=4), and CPU scale-out policy.
 
 EC2 instances are Bootstraped via user-data (installs Docker, authenticates to ECR, creates docker-compose.yml, starts services)
-![containers running inside EC2](<app_running.png>)
+![containers running inside EC2](screenshots/app_running.png)
 
 ### 3. Verify Services
 
@@ -75,7 +75,7 @@ curl http://$ALB_DNS/service-b/health
 chmod +x verify_endpoints.sh
 ./verify_endpoints.sh <ALB_DNS>
 ```
-![Verification](verify_script.png)
+![Verification](screenshots/verify_script.png)
 
 The script tests `/service-a/health` and `/service-b/health` through the ALB and exits with code 0 if all checks pass, or 1 if any fail.
 
@@ -104,7 +104,7 @@ To simulate scale-out:
 # SSH into an instance and generate CPU load
 stress --cpu 4 --timeout 600
 ```
-![ASG CPU scale out event](scale-out-event.png)
+![ASG CPU scale out event](screenshots/scale-out-event.png)
 
 
 ## Cleanup
@@ -113,6 +113,6 @@ stress --cpu 4 --timeout 600
 cd terraform/
 terraform destroy
 ```
-![terraform destroy](terraform-destroy.png)
+![terraform destroy](screenshots/terraform-destroy.png)
 
 All AWS resources are provisioned via Terraform and will be fully removed on `terraform destroy`.
